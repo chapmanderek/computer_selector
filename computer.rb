@@ -71,15 +71,16 @@ while breakout != true
     input.downcase!
     
     case input
-        when 1 
+        when '1' 
             allcomputers.each_value {|computer| print_info.print_all_attributes(computer)}
-        when 2 
-            puts "todo"
+        when '2' 
+            allcomputers.each_value {|computer| puts "#{computer.get_brand} #{computer.get_model}"}
         when 'e'
             breakout = true 
         else 
             puts "Invalid input.  Try again." 
-    end 
+    end
+    puts ""
 end
 
 
