@@ -47,7 +47,25 @@ class Printer
     end 
 end 
 
+def seed (allcomputers) 
+    hpchromebook11 = Computer.new("HP", "Chromebook 11", 279)
+    allcomputers["hpchromebook11"] = hpchromebook11
+    hpchromebook11.set_screensize(11)
+
+    googlepixel = Computer.new("Google", "Pixel", 1249)
+    googlepixel.set_screensize(12)
+    allcomputers["googlepixel"] = googlepixel
+    
+    return allcomputers
+end 
+
+allcomputers = Hash.new()
+print_info = Printer.new 
+allcomputers = seed(allcomputers)
+
 #tests 
-hpchromebook11 = Computer.new("HP", "Chromebook 11", 279)
-puts hpchromebook11.get_model() 
-puts hpchromebook11.get_price() 
+puts "\n\n Tests"
+puts allcomputers["hpchromebook11"].get_model
+puts print_info.print_all_attributes(allcomputers["googlepixel"])
+
+
