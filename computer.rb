@@ -34,7 +34,8 @@ class Printer
     
     def print_menu
         puts "1.  View all information for all computers in database"
-        puts "2.  View all computers in database"  #        puts "3.  Exit"
+        puts "2.  View all computers in database"          
+        puts "E =  Exit"
         print "-->"
     end 
     
@@ -47,16 +48,6 @@ class Printer
     end 
 end 
 
-<<<<<<< HEAD
-
-#tests 
-hpchromebook11 = Computer.new("HP", "Chromebook 11", 279)
-puts hpchromebook11.get_model() 
-puts hpchromebook11.get_price() 
-
-print_info = Printer.new 
-print_info.print_all_attributes(hpchromebook11)
-=======
 def seed (allcomputers) 
     hpchromebook11 = Computer.new("HP", "Chromebook 11", 279)
     allcomputers["hpchromebook11"] = hpchromebook11
@@ -73,10 +64,30 @@ allcomputers = Hash.new()
 print_info = Printer.new 
 allcomputers = seed(allcomputers)
 
+breakout = false
+while breakout != true 
+    print_info.print_menu()
+    input = gets.chomp
+    input.downcase!
+    
+    case input
+        when 1 
+            allcomputers.each_value {|computer| print_info.print_all_attributes(computer)}
+        when 2 
+            puts "todo"
+        when 'e'
+            breakout = true 
+        else 
+            puts "Invalid input.  Try again." 
+    end 
+end
+
+
+
 #tests 
+=begin 
 puts "\n\n Tests"
 puts allcomputers["hpchromebook11"].get_model
 puts print_info.print_all_attributes(allcomputers["googlepixel"])
+=end 
 
-
->>>>>>> hash-creation
