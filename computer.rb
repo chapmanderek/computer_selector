@@ -57,7 +57,7 @@ def seed (allcomputers)
     allcomputers["googlepixel"] = googlepixel
     
     return allcomputers
-end 
+end
 
 allcomputers = Hash.new()
 print_info = Printer.new 
