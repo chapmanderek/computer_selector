@@ -47,7 +47,11 @@ class Printer
     end 
 end 
 
+
 #tests 
 hpchromebook11 = Computer.new("HP", "Chromebook 11", 279)
 puts hpchromebook11.get_model() 
 puts hpchromebook11.get_price() 
+
+print_info = Printer.new 
+print_info.print_all_attributes(hpchromebook11)
