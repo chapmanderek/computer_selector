@@ -36,6 +36,7 @@ class Printer
         puts "1.  View all information for all computers in database"
         puts "2.  View all computers in database" 
         puts "3.  Filter computers by max price"
+        puts "4.  Filter computers by max screen size"
         puts "E =  Exit"
         print "-->"
     end 
@@ -63,8 +64,20 @@ class Filter
             end 
         end 
         return computers_to_return
-                
+    end
+    
+    def by_max_screen_size(max_screen_size, allcomputers)
+        computers_to_return = Array.new
+        i = 0 
+        allcomputers.each_value do |computer|
+            if computer.get_screensize <= max_screen_size
+                computers_to_return[i] = computer 
+                i += 1
+            end 
+        end 
+        return computers_to_return
     end 
+        
 end 
 
 def seed (allcomputers) 
@@ -96,8 +109,7 @@ breakout = false
 while breakout != true 
     print_info.print_menu()
     input = gets.chomp 
-    
-    input.downcase!
+        input.downcase!
     
     case input
         when '1' 
@@ -109,13 +121,23 @@ while breakout != true
             input = gets.chomp
             max = input.to_i
             if (max > 0)
-                puts "The following computers are less than $#{max}"
+                puts "\nThe following computers are less than $#{max}:"
                 returnedcomputers = filters.by_max_price(max, allcomputers)
-                #need loop to get all of the computers in the array 
                 returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"}
             else
                 puts "Sorry I didn't understand that." 
             end 
+        when '4'
+            print "Enter the maximum screen size you would like: "
+            input = gets.chomp
+            max = input.to_f
+            if (max > 0)
+                puts "\nThe following computers have a screen size smaller than #{max} inches:"
+                returnedcomputers = filters.by_max_screen_size(max, allcomputers)
+                returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} has a screen size of #{computer.get_screensize} inches"}
+            else
+                puts "Sorry I didn't understand that."
+        end 
         when 'e'
             breakout = true 
         else 
