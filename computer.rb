@@ -54,12 +54,15 @@ class Filter
     end 
     
     def by_max_price(max, allcomputers)
-        puts "The following computers are less than $#{max}"
+        computers_to_return = Array.new
+        i = 0 
         allcomputers.each_value do |computer|
             if computer.get_price <= max
-                puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"
+                computers_to_return[i] = computer 
+                i += 1
             end 
         end 
+        return computers_to_return
                 
     end 
 end 
@@ -73,12 +76,20 @@ def seed (allcomputers)
     googlepixel.set_screensize(12)
     allcomputers["googlepixel"] = googlepixel
     
+    lenovon20 = Computer.new("Lenovo", "N20", 299)
+    lenovon20.set_screensize(11.6)
+    allcomputers["lenovon20"] = lenovon20
+    
+    acerc720 = Computer.new("Acer", "C720", 199)
+    acerc720.set_screensize(11.6)
+    allcomputers["acerc720"] = acerc720
+    
     return allcomputers
 end
 
 allcomputers = Hash.new()
-print_info = Printer.new 
 allcomputers = seed(allcomputers)
+print_info = Printer.new 
 filters = Filter.new  
 
 breakout = false
@@ -98,7 +109,10 @@ while breakout != true
             input = gets.chomp
             max = input.to_i
             if (max > 0)
-                filters.by_max_price(max, allcomputers)
+                puts "The following computers are less than $#{max}"
+                returnedcomputers = filters.by_max_price(max, allcomputers)
+                #need loop to get all of the computers in the array 
+                returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"}
             else
                 puts "Sorry I didn't understand that." 
             end 
