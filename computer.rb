@@ -1,10 +1,11 @@
 class Computer
-    attr_reader :brand, :model, :price, :screensize 
+    attr_reader :brand, :model, :price, :screensize
     
-    def initialize (brand, model, price = 0)
-        @brand = brand
-        @model = model 
-        @price = price 
+    def initialize (inhash)
+        @brand = inhash[:brand]
+        @model = inhash[:model]
+        @price = inhash[:price].to_i
+        @screensize = inhash[:screensize].to_f
     end 
     
     def get_price()
@@ -18,14 +19,11 @@ class Computer
     def get_brand()
         brand 
     end
-    
-    def set_screensize(screensize = -1)
-        @screensize = screensize
-    end 
-    
-    def get_screensize()  
-        screensize   
-    end 
+
+    def get_screensize()
+        screensize
+    end
+
 end
 
 class Printer
@@ -76,28 +74,30 @@ class Filter
             end 
         end 
         return computers_to_return
-    end 
-        
+    end  
+
 end 
 
 def seed (allcomputers) 
-    hpchromebook11 = Computer.new("HP", "Chromebook 11", 279)
-    allcomputers["hpchromebook11"] = hpchromebook11
-    hpchromebook11.set_screensize(11)
+    seed = File.open('seed.txt', "r")
+    outhash = Hash.new()
 
-    googlepixel = Computer.new("Google", "Pixel", 1249)
-    googlepixel.set_screensize(12)
-    allcomputers["googlepixel"] = googlepixel
+    seed.each_line do |line| 
+        fields = line.split(',')
+ 
+        computerkey = fields[0]
+        outhash[:brand] = fields[1]
+        outhash[:model] = fields[2]
+        outhash[:price] = fields[3]
+        outhash[:screensize] = fields[4]
+        c = Computer.new(outhash)
+        allcomputers[computerkey] = c
+    end 
     
-    lenovon20 = Computer.new("Lenovo", "N20", 299)
-    lenovon20.set_screensize(11.6)
-    allcomputers["lenovon20"] = lenovon20
-    
-    acerc720 = Computer.new("Acer", "C720", 199)
-    acerc720.set_screensize(11.6)
-    allcomputers["acerc720"] = acerc720
-    
+    seed.close()
+
     return allcomputers
+
 end
 
 allcomputers = Hash.new()

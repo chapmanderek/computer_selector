@@ -1,0 +1,4 @@
+hpchromebook14, HP, Chromebook 14, 279, 14
+googlepixel, Google, Pixel, 1249, 12.8
+lenovon20, Lenovo, N20, 299, 11.6
+acerc720, Acer, C720, 199, 11.6
