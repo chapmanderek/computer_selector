@@ -93,7 +93,7 @@ def seed (allcomputers)
         c = Computer.new(outhash)
         allcomputers[computerkey] = c
     end 
-    
+
     seed.close()
 
     return allcomputers
@@ -121,9 +121,13 @@ while breakout != true
             input = gets.chomp
             max = input.to_i
             if (max > 0)
-                puts "\nThe following computers are less than $#{max}:"
                 returnedcomputers = filters.by_max_price(max, allcomputers)
-                returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"}
+                if (returnedcomputers.length > 0)
+                    puts "\nThe following computers are less than $#{max}:"
+                    returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"}
+                else
+                    puts "Sorry there were no computers that had a price less than $#{max}."
+                end
             else
                 puts "Sorry I didn't understand that." 
             end 
@@ -132,9 +136,13 @@ while breakout != true
             input = gets.chomp
             max = input.to_f
             if (max > 0)
-                puts "\nThe following computers have a screen size smaller than #{max} inches:"
                 returnedcomputers = filters.by_max_screen_size(max, allcomputers)
-                returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} has a screen size of #{computer.get_screensize} inches"}
+                if (returnedcomputers.length > 0)
+                    puts "\nThe following computers have a screen size smaller than #{max} inches:"
+                    returnedcomputers.each {|computer| puts "The #{computer.get_brand} #{computer.get_model} has a screen size of #{computer.get_screensize} inches"}
+                else
+                    puts "Sorry there were no computers that had a screen size less than #{max} inches."
+                end
             else
                 puts "Sorry I didn't understand that."
         end 
