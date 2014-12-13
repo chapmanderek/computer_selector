@@ -103,6 +103,35 @@ def seed (allcomputers)
     return allcomputers
 end
 
+def when5(allcomputers, filters)
+    print "Enter the maximum price: "
+    input = gets.chomp
+    max_p = input.to_i
+    if (max_p > 0)
+        returnedcomputers_p = filters.by_max_price(max_p, allcomputers)
+    else
+        puts "Sorry I didn't understand that." 
+        return
+    end
+
+    print "Enter the maximum screen size you would like: "
+    input = gets.chomp
+    max_s = input.to_f
+    if (max_s > 0)
+        returnedcomputers = filters.by_max_screen_size(max_s, returnedcomputers_p)
+    else
+        puts "Sorry I didn't understand that." 
+        return
+    end
+
+    if (returnedcomputers.length > 0)
+        puts "\nThe following computers meet you criteria of less than $#{max_p} and a screen smaller than #{max_s} inches."
+        returnedcomputers.each_value {|computer| puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"}
+    else
+        puts "Sorry there were no computers that matched your criteria."
+    end
+end
+
 allcomputers = Hash.new()
 allcomputers = seed(allcomputers)
 print_info = Printer.new 
@@ -152,33 +181,7 @@ while breakout != true
 
 #need to fix exiting when statement if user inputs junk
         when '5'
-            print "Enter the maximum price: "
-            input = gets.chomp
-            max_p = input.to_i
-            if (max_p > 0)
-                returnedcomputers_p = filters.by_max_price(max_p, allcomputers)
-            else
-                puts "Sorry I didn't understand that." 
-                break
-            end
-
-            print "Enter the maximum screen size you would like: "
-            input = gets.chomp
-            max_s = input.to_f
-            if (max_s > 0)
-                returnedcomputers = filters.by_max_screen_size(max_s, returnedcomputers_p)
-            else
-                puts "Sorry I didn't understand that." 
-                break
-            end
-
-            if (returnedcomputers.length > 0)
-                puts "\nThe following computers meet you criteria of less than $#{max_p} and a screen smaller than #{max_s} inches."
-                returnedcomputers.each_value {|computer| puts "The #{computer.get_brand} #{computer.get_model} costs $#{computer.get_price}"}
-            else
-                puts "Sorry there were no computers that matched your criteria."
-            end
-
+            when5(allcomputers, filters)
         when 'e'
             breakout = true 
         else 
